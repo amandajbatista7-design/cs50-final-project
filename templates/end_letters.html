@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quiz Finished
+{% endblock %}
+
+{% block main %}
+    <section>
+        <div class="card mb-3">
+            <div class="card-body fredoka-regular1">
+                <h2>Great job! You are learning the ABC</h2>
+                <button type="button" id="retryButton" class="btn btn-primary btn-lg">Try Again</button>
+                <button type="button" id="homeButton" class="btn btn-lg">Back to Home</button>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('#retryButton').addEventListener("click", () => {
+                window.location.href = "/letters";
+            });
+            document.querySelector("#homeButton").addEventListener("click", () => {
+                window.location.href = "/";
+            });
+        });
+    </script>
+{% endblock %}

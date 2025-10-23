@@ -1,0 +1,246 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Alphabet
+{% endblock %}
+
+{% block main %}
+    <!--content of the page-->
+    <section>
+        <div class="card mb-3">
+            <div class="header">
+                <br><br>
+                <h2 class="fredoka-title">Choose the letter according to the sound!</h2>
+            </div>
+
+            <div class="container">
+                <div class="section">
+                    <hr>
+                    <audio controls>
+                        <source src="static/audio/B.m4a" type="audio/mp4">
+                    </audio>
+                    <br><br>
+                    <div class="options">
+                        <button class="incorrect"><img class="img-fluid" src="static/abc/J.png" alt="Option1"></button>
+                        <button class="correct"><img class="img-fluid" src="static/abc/B.png" alt="Option2"></button>
+                        <button class="incorrect"><img class="img-fluid" src="static/abc/Z.png" alt="Option3"></button>
+                    </div>
+                    <p id="feedback1"></p>
+                </div>
+                <div class="button-container">
+                    <button type="button" id="nextButton" class="btn btn-success btn-lg" style="display:none;">Next</button>
+                </div>
+                <div id="endMessage" style="display:none;">
+                    <h2>Great job! You are learning the ABC</h2>
+                    <button type="button" id="retryButton" class="btn btn-primary btn-lg">Try Again</button>
+                    <button type="button" id="homeButton" class="btn btn-secondary btn-lg">Back to Home</button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    // help of cs50 duck and copilot
+        //Run script once DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = [
+            {
+                audio: "static/audio/B.m4a",
+                options: ["static/abc/J.png", "static/abc/B.png", "static/abc/Z.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/Y.m4a",
+                options: ["static/abc/E.png", "static/abc/A.png", "static/abc/Y.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/O.m4a",
+                options: ["static/abc/H.png", "static/abc/O.png", "static/abc/L.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/M.m4a",
+                options: ["static/abc/M.png", "static/abc/N.png", "static/abc/W.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/P.m4a",
+                options: ["static/abc/D.png", "static/abc/P.png", "static/abc/B.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/C.m4a",
+                options: ["static/abc/K.png", "static/abc/C.png", "static/abc/V.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/A.m4a",
+                options: ["static/abc/A.png", "static/abc/F.png", "static/abc/Y.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/Z.m4a",
+                options: ["static/abc/D.png", "static/abc/T.png", "static/abc/Z.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/R.m4a",
+                options: ["static/abc/R.png", "static/abc/H.png", "static/abc/L.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/K.m4a",
+                options: ["static/abc/J.png", "static/abc/Q.png", "static/abc/K.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/I.m4a",
+                options: ["static/abc/Y.png", "static/abc/E.png", "static/abc/I.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/D.m4a",
+                options: ["static/abc/D.png", "static/abc/T.png", "static/abc/P.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/V.m4a",
+                options: ["static/abc/U.png", "static/abc/I.png", "static/abc/V.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/S.m4a",
+                options: ["static/abc/X.png", "static/abc/S.png", "static/abc/F.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/W.m4a",
+                options: ["static/abc/W.png", "static/abc/M.png", "static/abc/H.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/L.m4a",
+                options: ["static/abc/N.png", "static/abc/X.png", "static/abc/L.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/G.m4a",
+                options: ["static/abc/G.png", "static/abc/T.png", "static/abc/V.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/J.m4a",
+                options: ["static/abc/J.png", "static/abc/A.png", "static/abc/K.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/F.m4a",
+                options: ["static/abc/F.png", "static/abc/T.png", "static/abc/Z.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/H.m4a",
+                options: ["static/abc/A.png", "static/abc/Y.png", "static/abc/H.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/T.m4a",
+                options: ["static/abc/E.png", "static/abc/T.png", "static/abc/V.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/Q.m4a",
+                options: ["static/abc/Q.png", "static/abc/O.png", "static/abc/K.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/N.m4a",
+                options: ["static/abc/M.png", "static/abc/N.png", "static/abc/B.png"],
+                correct: 1
+            },
+            {
+                audio: "static/audio/U.m4a",
+                options: ["static/abc/U.png", "static/abc/E.png", "static/abc/V.png"],
+                correct: 0
+            },
+            {
+                audio: "static/audio/X.m4a",
+                options: ["static/abc/S.png", "static/abc/C.png", "static/abc/X.png"],
+                correct: 2
+            },
+            {
+                audio: "static/audio/E.m4a",
+                options: ["static/abc/I.png", "static/abc/E.png", "static/abc/Y.png"],
+                correct: 1
+            }
+            ];
+
+            let currentQuestionIndex = 0;
+
+            function showQuestion(index) {
+                const question = questions[index];
+                document.querySelector("audio source").src = question.audio;
+                document.querySelector("audio").load();
+                const buttons = document.querySelectorAll(".options button img");
+                buttons.forEach((img, i) => {
+                    img.src = question.options[i];
+                    img.classList.add('img-fluid');
+                    const button = img.parentElement;
+                    button.classList.remove('correct-answer', 'incorrect-answer');
+                    button.onclick = (i === question.correct) ? handleCorrectAnswer : handleIncorrectAnswer;
+                });
+            }
+
+            // Give feedback for correct answer
+            function handleCorrectAnswer(event) {
+                const button = event.currentTarget;
+                button.classList.add('correct-answer');
+                document.querySelector('#feedback1').innerHTML = 'Correct!';
+                document.getElementById('nextButton').style.display = 'block';
+                disableButtons();
+            }
+            // Feedback incorrect answer
+            function handleIncorrectAnswer(event) {
+                const button = event.currentTarget;
+                button.classList.add('incorrect-answer');
+                document.querySelector('#feedback1').innerHTML = 'Incorrect!';
+            }
+
+            function disableButtons() {
+                const buttons = document.querySelectorAll('.options button');
+                buttons.forEach(button => {
+                    button.onclick = null;
+                });
+            }
+
+            document.querySelector("#nextButton").addEventListener("click", () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion(currentQuestionIndex);
+                    document.querySelector('#feedback1').innerHTML = '';
+                    document.getElementById('nextButton').style.display = 'none';
+                } else {
+                    // Handle end of quiz (copilot help)
+                    window.location.href = "/end_letters";
+                }
+            });
+
+            document.querySelector("#retryButton").addEventListener("click", () => {
+                currentQuestionIndex = 0;
+                showQuestion(currentQuestionIndex);
+                document.querySelector('.section').style.display = 'block';
+                document.getElementById('endMessage').style.display = 'none';
+            });
+
+            document.querySelector("#homeButton").addEventListener("click", () => {
+                window.location.href = "/"; // Adjust URL as needed
+            });
+
+            // Initial display
+            showQuestion(currentQuestionIndex);
+        });
+    </script>
+{% endblock %}

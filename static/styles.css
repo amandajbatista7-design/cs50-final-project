@@ -1,0 +1,303 @@
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Honk&family=Kranky&family=Rubik+Mono+One&family=Rubik+Moonrocks&family=Shadows+Into+Light&display=swap');
+
+/*adjust margins (copilot help)*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* background style(copilot help)*/
+.background {
+    background-image: url('background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.background .content {
+    flex: 1;
+}
+
+/*font style*/
+.rubik-moonrocks-regular {
+    font-family: "Rubik Moonrocks", sans-serif;
+    font-size: 140px;
+    font-style: normal;
+    text-align: center;
+    color: lightseagreen;
+    /* text shadow copilot help*/
+    text-shadow:
+        -4px -4px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+  }
+
+.fredoka-regular {
+  font-family: "Fredoka", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+  font-variation-settings:
+    "wdth" 150;
+}
+
+.fredoka-regular1 {
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+    text-align: center;
+    font-variation-settings:
+      "wdth" 150;
+  }
+
+.fredoka-title {
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+    font-size: 50px;
+    text-align: center;
+}
+
+/*navigation bar style*/
+.custom-navbar {
+    font-family: 'Rubik Mono One', monospace;
+    background-color: #e32ad1;
+}
+
+.custom-navbar .nav-link {
+    color: #ffd147;
+    font-size: 30px;
+    padding: 0 10px;
+}
+
+.custom-navbar .nav-link:hover {
+    color: lightgreen;
+}
+
+.custom-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='green' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.custom-navbar .container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-navbar .navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/*style for medium screens*/
+@media (max-width: 992px) {
+    .custom-navbar .nav-link {
+        font-size: 14px;
+    }
+    .fredoka-regular {
+        font-size: 30px;
+    }
+    .fredoka-regular1 {
+        font-size: 30px;
+    }
+    .fredoka-title {
+        font-size: 40px
+    }
+    .rubik-moonrocks-regular {
+        font-size: 140px;
+    }
+    img {
+        width: 240px;
+        height: 240px;
+    }
+    .options img {
+        width: 240px;
+        height: 240px;
+    }
+    .answer img {
+        width: 240px;
+        height: 240px;
+    }
+}
+
+/*style for small screns*/
+@media (max-width: 768px) {
+    .custom-navbar .nav-link {
+        font-size: 16px;
+    }
+    .fredoka-regular {
+        font-size: 16px;
+    }
+    .fredoka-regular1 {
+        font-size: 18px;
+    }
+    .fredoka-title {
+        font-size: 20px
+    }
+    .rubik-moonrocks-regular {
+        font-size: 60px;
+    }
+    img {
+        width: 150px;
+        height: 150px;
+    }
+    .answer img {
+        width: 150px;
+    }
+    .options img {
+        width: 150px;
+        height: 150px;
+    }
+    body {
+        margin-bottom: 0;
+    }
+}
+
+/*style for small/small screens*/
+@media (max-width: 480px) {
+    .custom-navbar .nav-link {
+        font-size: 12px;
+    }
+    .options img {
+        width: 60px;
+        height: 60px;
+    }
+    .answer img {
+        width: 60px;
+    }
+}
+
+.background .m-5 {
+    margin: 0;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+/* Buttons for the games (copilot help)*/
+.game-link {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #ffd147;
+    color: #e32ad1;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.game-link:hover {
+    background-color: #e32ad1;
+    color: #ffd147;
+}
+
+img {
+    width: 300px;
+    height: 300px;
+}
+
+button img {
+    position: relative;
+    z-index: 1;
+}
+
+/* change the color of the background when an option is selected (copilot help)*/
+.correct-answer img {
+    filter: invert(46%) sepia(93%) saturate(365%) hue-rotate(76deg) brightness(100%) contrast(92%);
+    opacity: 1;
+}
+
+.incorrect-answer img {
+    filter: invert(40%) sepia(100%) saturate(7485%) hue-rotate(360deg) brightness(100%) contrast(95%);
+    opacity: 0.9;
+}
+
+#nextButton {
+    display: none;
+}
+
+/*centralize the next button (copilot help)*/
+.button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+button {
+    display: block;
+    margin: 0 auto;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.options button {
+    display: inline-block;
+    margin: 10px;
+    align-items: center;
+}
+
+#endMessage {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.question, .answers {
+    margin: 20px;
+}
+
+.answer {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.answer img, .options img {
+    max-width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    display: block;
+}

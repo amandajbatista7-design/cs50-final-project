@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shapes and Colors
+{% endblock %}
+
+{% block main %}
+    <!--content of the home page-->
+    <section>
+        <div class="card mb-3">
+            <div class="question fredoka-title" id="question"></div>
+            <button id="readAloudButton" class="btn btn-primary btn-lg">Read Aloud</button>
+            <div class="answers options" id="answers"></div>
+            <div id="feedback1"></div>
+            <div class="button-container">
+                <button type="button" id="nextButton" class="btn btn-success btn-lg" style="display:none;">Next</button>
+            </div>
+            <div id="endMessage" style="display: none;">
+                <h2>Congratulations, you've finished the quiz!</h2>
+            </div>
+            <button id="retryButton" class="btn btn-primary btn-lg">Try again</button>
+            <button id="homeButton" class="btn btn-secondary btn-lg">Home</button>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // copilot and cs50 duck guidance for the script and debug
+        document.addEventListener('DOMContentLoaded', async function() {
+            let currentQuestionIndex = 0;
+            const response = await fetch('/get_questions');
+            const questions = await response.json();
+
+            if (questions.error) {
+                document.getElementById('question').innerText = 'No question found';
+                return;
+            }
+
+            function readAloud(text) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                speechSynthesis.speak(utterance);
+            }
+
+            function showQuestion(index) {
+                const question = questions[index];
+                document.getElementById('question').innerText = question.question;
+                const answersDiv = document.getElementById('answers');
+                answersDiv.innerHTML = '';
+                question.options.forEach((option, i) => {
+                    const button = document.createElement('button');
+                    button.className = 'answer';
+                    button.innerHTML = `<img class="img-fluid" src="${option.image_path}" alt="Option">`;
+                    button.onclick = (i === question.correct) ? handleCorrectAnswer : handleIncorrectAnswer;
+                    answersDiv.appendChild(button);
+                });
+            }
+
+            document.getElementById('readAloudButton').addEventListener('click', function() {
+                const questionText = document.getElementById('question').innerText;
+                readAloud(questionText);
+            });
+
+            document.querySelector("#nextButton").addEventListener("click", () => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion(currentQuestionIndex);
+                    document.querySelector('#feedback1').innerHTML = '';
+                    document.getElementById('nextButton').style.display = 'none';
+                } else {
+                    window.location.href = "/end_shapes";
+                }
+            });
+
+            document.querySelector("#retryButton").addEventListener("click",() => {
+                currentQuestionIndex = 0;
+                showQuestion(currentQuestionIndex);
+                document.querySelector('.answers').style.display = 'block';
+                document.getElementById('endMessage').style.display = 'none';
+                document.getElementById('retryButton').style.display = 'none';
+                document.getElementById('homeButton').style.display = 'none';
+            });
+
+            document.querySelector("#homeButton").addEventListener("click",() => {
+                window.location.href = "/";
+            });
+
+            function handleCorrectAnswer(event) {
+                const button = event.currentTarget;
+                button.classList.add('correct-answer');
+                document.querySelector('#feedback1').innerHTML = 'Correct!';
+                document.getElementById('nextButton').style.display = 'block';
+                disableButtons();
+            }
+
+            function handleIncorrectAnswer(event) {
+                const button = event.currentTarget;
+                button.classList.add('incorrect-answer');
+                document.querySelector('#feedback1').innerHTML = 'Incorrect!';
+            }
+
+            function disableButtons() {
+                const buttons = document.querySelectorAll('.answer');
+                buttons.forEach(button => {
+                    button.onclick = null;
+                })
+            }
+            showQuestion(currentQuestionIndex);
+            document.getElementById('endMessage').style.display = 'none';
+            document.getElementById('nextButton').style.display = 'none';
+            document.getElementById('retryButton').style.display = 'none';
+            document.getElementById('homeButton').style.display = 'none';
+            document.querySelector('.answers').style.display = 'block';
+        });
+    </script>
+{% endblock %}
