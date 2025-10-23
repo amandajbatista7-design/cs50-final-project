@@ -115,3 +115,4 @@ Since these games are designed for kids, in both games, the user needs to choose
 
 - The license chosen for this webpage is the MIT License, detailed in `LICENSE.txt`.
 
+"# cs50-final-project" 
